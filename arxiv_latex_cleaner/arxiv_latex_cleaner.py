@@ -455,9 +455,11 @@ def run_arxiv_cleaner(parameters):
   full_content = '\n'.join(
       ''.join(tex_contents[fn]) for fn in splits['tex_to_copy'])
   _copy_only_referenced_non_tex_not_in_root(parameters, full_content, splits)
-  for non_tex_file in splits['non_tex_in_root']:
-    logging.info('Copying non-tex file %s.', non_tex_file)
-    _copy_file(non_tex_file, parameters)
+
+  if not parameters['skip_non_tex_files']:
+    for non_tex_file in splits['non_tex_in_root']:
+      logging.info('Copying non-tex file %s.', non_tex_file)
+      _copy_file(non_tex_file, parameters)
 
   _resize_and_copy_figures_if_referenced(parameters, full_content, splits)
   logging.info('Outputs written to %s', parameters['output_folder'])

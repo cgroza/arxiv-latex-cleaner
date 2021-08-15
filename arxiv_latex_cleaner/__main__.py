@@ -115,6 +115,14 @@ PARSER.add_argument(
     help="Enable detailed output.",
 )
 
+PARSER.add_argument(
+  "--skip_non_tex_files",
+  action='store_true',
+  default=False,
+  required=False,
+  help=("Skip copying files in root that are not TeX files, such as scripts.")
+)
+
 ARGS = vars(PARSER.parse_args())
 
 if ARGS["config"] is not None:
